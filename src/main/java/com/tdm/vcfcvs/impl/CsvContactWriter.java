@@ -2,13 +2,14 @@ package com.tdm.vcfcvs.impl;
 
 import com.tdm.vcfcvs.abstr.ContactConsumer;
 import com.tdm.vcfcvs.abstr.ContactWriter;
+import com.tdm.vcfcvs.dto.Contact;
 
 import java.io.*;
 
 public class CsvContactWriter implements ContactWriter {
     public static final String CSV_EXTENSION = ".csv";
 
-    private File file;
+    private final File file;
     private PrintWriter writer;
     private FileOutputStream output;
 

@@ -1,6 +1,6 @@
 package com.tdm.vcfcvs.abstr;
 
-import com.tdm.vcfcvs.impl.Contact;
+import com.tdm.vcfcvs.dto.Contact;
 
 import java.io.IOException;
 
@@ -9,4 +9,5 @@ import java.io.IOException;
  */
 public interface ContactWriter {
     public void writeContact(Contact contact) throws IOException;
+
 }

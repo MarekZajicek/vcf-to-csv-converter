@@ -7,8 +7,8 @@ import java.io.IOException;
  * Created by Taras on 07/12/2014.
  */
 public class VcfToCsvConverter {
-    private String vcfFilesPath;
-    private String cvsFile;
+    private final String vcfFilesPath;
+    private final String cvsFile;
 
     public VcfToCsvConverter(String vcfFilesPath, String cvsFile) {
         this.vcfFilesPath = vcfFilesPath;
