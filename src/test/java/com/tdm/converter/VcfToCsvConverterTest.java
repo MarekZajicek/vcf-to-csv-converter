@@ -1,12 +1,19 @@
-package com.tdm.vcfcvs.impl;
+package com.tdm.converter;
 
+import com.tdm.converter.VcfToCsvConverter;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class VcfToCsvConverterTest {
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testConvert_file_instead_folder() throws IOException {
+        String folderPath = getClass().getClassLoader().getResource("test").getPath();
+
+        new VcfToCsvConverter(folderPath, "target/test").convert();
+
+    }
 
     @Test
     public void testConvert() throws IOException {

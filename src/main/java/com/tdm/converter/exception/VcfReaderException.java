@@ -1,4 +1,4 @@
-package com.tdm.vcfcvs.exception;
+package com.tdm.converter.exception;
 
 /**
  * @author Marek Zajicek <marek.zajicek@asseco-ce.com>

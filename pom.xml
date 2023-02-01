@@ -35,7 +35,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.tdm.vcfcvs.Main</mainClass>
+                            <mainClass>com.tdm.converter.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

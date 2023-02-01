@@ -1,9 +1,9 @@
-package com.tdm.vcfcvs.impl;
+package com.tdm.converter.vcf;
 
-import com.tdm.vcfcvs.abstr.ContactConsumer;
-import com.tdm.vcfcvs.abstr.ContactReader;
-import com.tdm.vcfcvs.dto.Contact;
-import com.tdm.vcfcvs.exception.VcfReaderException;
+import com.tdm.converter.csv.ContactConsumer;
+import com.tdm.converter.dto.ContactDto;
+import com.tdm.converter.dto.NameDto;
+import com.tdm.converter.exception.VcfReaderException;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +26,10 @@ public class VcfReader implements ContactReader {
 
         try (Scanner scanner = new Scanner(Files.newInputStream(file.toPath()))) {
 
-            String name = null;
-            String phone = null;
-            String birthDay = null;
+            String name = "";
+            String surname = "";
+            String phone = "";
+            String email = "";
 
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -39,9 +40,13 @@ public class VcfReader implements ContactReader {
                     System.out.println();
                 }
                 if (line.startsWith("N:")) {
-                    name = getVcfValue(line);
-                } else if (line.startsWith("TEL")) {
+                    String[] nameArray = getVcfValue(line).split(";");
+                    surname = nameArray[0];
+                    name = nameArray[1];
+                } else if (line.contains("TEL:")) {
                     phone = getVcfValue(line);
+                } else if (line.contains("EMAIL;")) {
+                    email = getVcfValue(line);
                 }
             }
 
@@ -49,7 +54,7 @@ public class VcfReader implements ContactReader {
                 throw new VcfReaderException("Name value 'N' is mandatory item");
             }
 
-            consumer.onContactRead(new Contact(name, phone, birthDay));
+            consumer.onContactRead(new ContactDto(new NameDto(name, surname), phone, email));
         }
     }
 

@@ -1,10 +1,10 @@
 BEGIN:VCARD
 VERSION:3.0
-FN:Karel Fajmon
-N:Fajmon;Karel;;;
+FN:Jaryn Mrkva
+N:Mrkva;Jaryn;;;
 item1.EMAIL;TYPE=INTERNET:k.f@test.cz
 item1.X-ABLabel:
-item2.TEL:608 506 623
+item2.TEL:123 456 789
 item2.X-ABLabel:
 CATEGORIES:myContacts
 END:VCARD
