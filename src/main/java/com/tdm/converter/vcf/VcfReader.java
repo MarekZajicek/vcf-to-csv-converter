@@ -4,6 +4,8 @@ import com.tdm.converter.csv.ContactConsumer;
 import com.tdm.converter.dto.ContactDto;
 import com.tdm.converter.dto.NameDto;
 import com.tdm.converter.exception.VcfReaderException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,9 @@ import java.nio.file.Files;
 import java.util.Scanner;
 
 public class VcfReader implements ContactReader {
+
+    private static final Logger LOG = LoggerFactory.getLogger(VcfReader.class);
+
     private final File file;
 
     public VcfReader(String filePath) {
@@ -23,6 +28,7 @@ public class VcfReader implements ContactReader {
 
     @Override
     public void readContact(ContactConsumer consumer) throws IOException {
+        LOG.info("Trying to load VCF file:  '{}'", file.getName());
 
         try (Scanner scanner = new Scanner(Files.newInputStream(file.toPath()))) {
 
@@ -31,13 +37,14 @@ public class VcfReader implements ContactReader {
             String phone = "";
             String email = "";
 
+            StringBuilder stringBuilder = new StringBuilder();
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 if (!line.isEmpty()) {
-                    System.out.println(line);
+                    stringBuilder.append(line).append("\n");
                 }
                 if (line.equals("END:VCARD")) {
-                    System.out.println();
+                    LOG.debug("File '{}' content: \n{}", file.getName(), stringBuilder);
                 }
                 if (line.startsWith("N:")) {
                     String[] nameArray = getVcfValue(line).split(";");

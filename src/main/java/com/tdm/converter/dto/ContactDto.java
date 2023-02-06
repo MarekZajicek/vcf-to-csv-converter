@@ -1,5 +1,7 @@
 package com.tdm.converter.dto;
 
+import static com.tdm.converter.csv.CsvContactWriter.CSV_DELIMITER;
+
 public class ContactDto {
 
     private final NameDto name;
@@ -13,10 +15,7 @@ public class ContactDto {
     }
 
     public String toCsv() {
-        String csvLine = String.join(",", name.getName(), name.getSurname(), email, phone) + ";";
-        System.out.println(csvLine);
-        System.out.println();
-        return csvLine;
+        return String.join(CSV_DELIMITER, name.getName(), name.getSurname(), email, phone) + ";";
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.tdm.converter;
 
-import com.tdm.converter.VcfToCsvConverter;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

@@ -1,0 +1,25 @@
+<configuration debug="false" scan="true" scanPeriod="3 seconds">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss} | %highlight(%-5level) | %yellow(%logger{36}) ----- %cyan(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>converter.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <logger name="ch.qos" level="error" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+</configuration>

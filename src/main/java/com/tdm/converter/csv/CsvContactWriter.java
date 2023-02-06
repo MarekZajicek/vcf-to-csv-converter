@@ -1,13 +1,22 @@
 package com.tdm.converter.csv;
 
 import com.tdm.converter.dto.ContactDto;
+import com.tdm.converter.exception.CsvWriterException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 
 public class CsvContactWriter implements ContactWriter, AutoCloseable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CsvContactWriter.class);
+
     public static final String CSV_EXTENSION = ".csv";
     private static final String CSV_HEADER = "First Name,Last Name,E-mail Address,Primary Phone";
+    public static final String CSV_DELIMITER = ",";
 
     private final File file;
     private PrintWriter writer;
@@ -29,7 +38,9 @@ public class CsvContactWriter implements ContactWriter, AutoCloseable {
 
     @Override
     public void writeContact(ContactDto contactDto) throws IOException {
-        writer.println(contactDto.toCsv());
+        String csvLine = contactDto.toCsv();
+        LOG.debug("Writing to file '{}' \nCSV line: {}\n", file.getName(), csvLine);
+        writer.println(csvLine);
         writer.flush();
     }
 
@@ -37,8 +48,9 @@ public class CsvContactWriter implements ContactWriter, AutoCloseable {
         return contactDto -> {
             try {
                 writeContact(contactDto);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                LOG.error("CSV writer error", e);
+                throw new CsvWriterException(e);
             }
         };
     }
